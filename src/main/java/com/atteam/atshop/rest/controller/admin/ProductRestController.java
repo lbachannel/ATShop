@@ -1,6 +1,9 @@
 package com.atteam.atshop.rest.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.Id;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atteam.atshop.model.Product;
@@ -22,6 +26,13 @@ import com.atteam.atshop.service.impl.ProductServiceImpl;
 public class ProductRestController {
 	@Autowired
 	IProductService productService = new ProductServiceImpl();
+	
+	// Admin: Thống kê số lượng của từng sản phẩm theo danh mục
+	@GetMapping("/rest/product-quantity/{id}")
+	public ResponseEntity<List<Product>> getQuantitiesByProduct(@PathVariable("id") String id){
+		return ResponseEntity.ok(productService.findByCategoryId(id));
+	}
+
 	
 	// Get all products
 	@GetMapping("/rest/product")

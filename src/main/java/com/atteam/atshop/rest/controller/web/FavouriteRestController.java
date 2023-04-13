@@ -3,13 +3,11 @@ package com.atteam.atshop.rest.controller.web;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +16,6 @@ import com.atteam.atshop.model.Favourite;
 
 import com.atteam.atshop.service.IAccountService;
 import com.atteam.atshop.service.IFavouriteService;
-import com.fasterxml.jackson.databind.JsonNode;
 
 @CrossOrigin("*")
 @RestController
@@ -29,11 +26,6 @@ public class FavouriteRestController {
 	
 	@Autowired
 	IAccountService accountService;
-	
-	@PostMapping
-	public Favourite like(@RequestBody JsonNode favouriteData) {
-		return favouriteService.create(favouriteData);
-	}
 	
 	@GetMapping("/{id}")
 	public Favourite check(HttpServletRequest request, @PathVariable("id") String id) {

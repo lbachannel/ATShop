@@ -1,5 +1,7 @@
 package com.atteam.atshop.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +11,6 @@ import com.atteam.atshop.model.Account;
 import com.atteam.atshop.model.Favourite;
 import com.atteam.atshop.model.Product;
 import com.atteam.atshop.service.IFavouriteService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class FavouriteServiceImpl implements IFavouriteService{
@@ -22,19 +22,6 @@ public class FavouriteServiceImpl implements IFavouriteService{
 	IProductDAO productDao;
 	
 	@Override
-	public Favourite create(JsonNode favouriteData) {
-		ObjectMapper mapper = new ObjectMapper();
-		Favourite favourite = mapper.convertValue(favouriteData, Favourite.class);
-		dao.save(favourite);
-		return favourite;
-	}
-
-//	@Override
-//	public Optional<Favourite> findByUsernameAndProductId(String username, String productId) {
-//		return dao.findByUsernameAndProductId(username, productId);
-//	}
-	
-	@Override
 	public Favourite findByUsernameAndProductId(String username, String productId) {
 		return dao.findByUsernameAndProductId(username, productId);
 	}
@@ -42,11 +29,6 @@ public class FavouriteServiceImpl implements IFavouriteService{
 	@Override
 	public void delete(Favourite favourite) {
 		dao.delete(favourite);
-	}
-
-	@Override
-	public Favourite create(Favourite favorite) {
-		return dao.save(favorite);
 	}
 	
 	@Override
@@ -73,6 +55,16 @@ public class FavouriteServiceImpl implements IFavouriteService{
 		}
 		Favourite updateFavourite = dao.save(existFavourite);
 		return updateFavourite;
+	}
+
+	@Override
+	public List<Object[]> getTotalLikesOfProduct() {
+		return dao.getTotalLikesOfProduct();
+	}
+
+	@Override
+	public List<Object[]> getUserInfoWithProductIsLikedByUsers(String productId) {
+		return dao.getUserInfoWithProductIsLikedByUsers(productId);
 	}
 
 }

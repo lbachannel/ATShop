@@ -95,12 +95,17 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 	var $cart = $scope.cart = {
 		items: [],
 		
-		// Thêm sản phẩm vào giỏ
+		// Thêm sản phẩm vào giỏ 
 		add(id){
 			var item = this.items.find(item => item.productId == id);         // tìm id, xem có tồn tại chưa
 			if(item){  // đã tồn tại thì ++
-				item.qty++;
-				this.saveToLocalStorage();
+				if(item.qty < item.productQuantity){
+					// Kiểm tra số lượng sản phẩm trong giỏ hàng với số lượng sản phẩm trong kho
+					item.qty++;
+					this.saveToLocalStorage();
+				}else{
+					alert("The number of products has exceeded the quantity in stock!");
+				}
 			}else{     // chưa tồn tại, gọi API tìm sp
 				$http.get(`/web/rest/product/${id}`).then(resp => {
 					resp.data.qty = 1;
@@ -156,7 +161,14 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 
 	// Thêm sự kiện tăng giảm số lượng
 	$scope.increaseQuantity = function(item) {
-		item.qty += 1;
+		// Kiểm tra số lượng trong kho
+		if (item.qty < item.productQuantity) {
+			// Nếu số lượng của item chưa vượt quá số lượng trong kho
+			// thì tăng số lượng của item lên 1
+			item.qty += 1;
+		}else{
+			alert("The number of products has exceeded the quantity in stock!");
+		}
 		$scope.cart.saveToLocalStorage();
 	};
 

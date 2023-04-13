@@ -37,6 +37,11 @@ public class ProductController {
 	@RequestMapping("index")
 	public String home(Model model) {
 		List<Product> list = productService.findRecentProducts();
+		for(int i = 0; i < list.size(); ++i) {
+			if(list.get(i).getProductQuantity() == 0) {
+				list.remove(list.get(i));
+			}
+		}
 		model.addAttribute("items", list);
 		return "web/product/home";
 	}
@@ -49,10 +54,20 @@ public class ProductController {
 	@RequestMapping("/product/list")
 	public String list(Model model, @RequestParam("cid") Optional<String> cid) {
 		if(cid.isPresent()) {
-			List<Product> list = productService.findByCategoryId(cid.get());			
+			List<Product> list = productService.findByCategoryId(cid.get());
+			for(int i = 0; i < list.size(); ++i) {
+				if(list.get(i).getProductQuantity() == 0) {
+					list.remove(list.get(i));
+				}
+			}
 			model.addAttribute("items", list);
 		}else {
 			List<Product> list = productService.findAll();
+			for(int i = 0; i < list.size(); ++i) {
+				if(list.get(i).getProductQuantity() == 0) {
+					list.remove(list.get(i));
+				}
+			}
 			model.addAttribute("items", list);
 		}
 		return "web/product/list";
@@ -62,6 +77,11 @@ public class ProductController {
 	@RequestMapping("/product/list/sort-date-desc")
 	public String listProductSortByDateDesc(Model model) {
 		List<Product> list = productService.sortByProductLatest();
+		for(int i = 0; i < list.size(); ++i) {
+			if(list.get(i).getProductQuantity() == 0) {
+				list.remove(list.get(i));
+			}
+		}
 		model.addAttribute("items", list);
 		return "web/product/list";
 	}
@@ -70,6 +90,11 @@ public class ProductController {
 	@RequestMapping("/product/list/sort-date-asc")
 	public String sortByProductOldestDay(Model model) {
 		List<Product> list = productService.sortByProductOldestDay();
+		for(int i = 0; i < list.size(); ++i) {
+			if(list.get(i).getProductQuantity() == 0) {
+				list.remove(list.get(i));
+			}
+		}
 		model.addAttribute("items", list);
 		return "web/product/list";
 	}
@@ -86,21 +111,51 @@ public class ProductController {
 	  List<Product> list = productService.findAll();
 	  if(all != null) {
 		  list = list.stream().collect(Collectors.toList());
+		  for(int i = 0; i < list.size(); ++i) {
+			  if(list.get(i).getProductQuantity() == 0) {
+				  list.remove(list.get(i));
+			  }
+		  }
 	  }
 	  if (between0and150 != null && between0and150) {
 		  list = list.stream().filter(p -> p.getProductPrice() < 150).collect(Collectors.toList());
+		  for(int i = 0; i < list.size(); ++i) {
+			  if(list.get(i).getProductQuantity() == 0) {
+				  list.remove(list.get(i));
+			  }
+		  }
 	  }
 	  if (between150and200 != null && between150and200) {
 		  list = list.stream().filter(p -> p.getProductPrice() >= 150 && p.getProductPrice() <= 200).collect(Collectors.toList());
+		  for(int i = 0; i < list.size(); ++i) {
+			  if(list.get(i).getProductQuantity() == 0) {
+				  list.remove(list.get(i));
+			  }
+		  }
 	  }
 	  if (between200and300 != null && between200and300) {
 		  list = list.stream().filter(p -> p.getProductPrice() > 200 && p.getProductPrice() <= 300).collect(Collectors.toList());
+		  for(int i = 0; i < list.size(); ++i) {
+			  if(list.get(i).getProductQuantity() == 0) {
+				  list.remove(list.get(i));
+			  }
+		  }
 	  }
 	  if (between300and400 != null && between300and400) {
 		  list = list.stream().filter(p -> p.getProductPrice() > 300 && p.getProductPrice() <= 400).collect(Collectors.toList());
+		  for(int i = 0; i < list.size(); ++i) {
+			  if(list.get(i).getProductQuantity() == 0) {
+				  list.remove(list.get(i));
+			  }
+		  }
 	  }
 	  if (between400and500 != null && between400and500) {
 		  list = list.stream().filter(p -> p.getProductPrice() > 400 && p.getProductPrice() <= 500).collect(Collectors.toList());
+		  for(int i = 0; i < list.size(); ++i) {
+			  if(list.get(i).getProductQuantity() == 0) {
+				  list.remove(list.get(i));
+			  }
+		  }
 	  }
 	  model.addAttribute("items", list);
 	  return "web/product/list";
@@ -130,6 +185,11 @@ public class ProductController {
 	@RequestMapping("/product/list/search")
 	public String searchProductByNameOrId(@RequestParam("keyword") String kw, @RequestParam("keyword") String kw1, Model model) {
 		List<Product> products = productService.searchByProductNameOrId(kw, kw1);
+		for(int i = 0; i < products.size(); ++i) {
+			if(products.get(i).getProductQuantity() == 0) {
+				products.remove(products.get(i));
+			}
+		}
 		if(kw.equals("")) {
 			model.addAttribute("message", "Please input keyword to find product");
 			model.addAttribute("items", productService.findAll());

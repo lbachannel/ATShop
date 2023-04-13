@@ -11,6 +11,15 @@ app.config(function($routeProvider){
 	.when("/authority", {
 		templateUrl: "/assets/admin/layout/authority.html"
 	})
+	.when("/favourites", {
+		templateUrl: "/assets/admin/layout/favourites.html"
+	})
+	.when("/inventory-management", {
+		templateUrl: "/assets/admin/layout/inventory-management.html"
+	})
+	.when("/order", {
+		templateUrl: "/assets/admin/layout/order.html"
+	})
 	.otherwise({
 		redirectTo: ""
 	});

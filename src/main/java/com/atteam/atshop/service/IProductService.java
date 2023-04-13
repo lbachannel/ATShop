@@ -2,6 +2,8 @@ package com.atteam.atshop.service;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
+
 import com.atteam.atshop.model.Product;
 
 public interface IProductService {
@@ -33,6 +35,5 @@ public interface IProductService {
 	List<Product> searchByProductNameOrId(String productName, String productId);
 	
 	List<Product> findAllProductCustomerLike(String username);
-
-
+	
 }
