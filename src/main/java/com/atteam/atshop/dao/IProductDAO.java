@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.atteam.atshop.model.Product;
 
 public interface IProductDAO extends JpaRepository<Product, String>{
+	// loại truy vấn JPQL
 	@Query("select p from Product p where p.category.categoryId = ?1")
 	List<Product> findByCategoryId(String cid);
 	
@@ -20,6 +21,7 @@ public interface IProductDAO extends JpaRepository<Product, String>{
 	List<Product> sortByProductOldestDay();
 	
 	// Lọc 8 sản phẩm theo ngày đăng mới nhất. Hiển thị trên trang HOME
+	// ngày mới nhat lên đầu 
 	@Query(value = "select top 8 * from Products order by ProductCreateDate desc", nativeQuery = true)
 	List<Product> findRecentProducts();
 	

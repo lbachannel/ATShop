@@ -37,6 +37,8 @@ public class FavouriteRestController {
 	
 	@PutMapping("/{id}")
 	public Favourite update(HttpServletRequest request, @PathVariable("id") String id) {
+		// có 2 cách
+		// HttpServletRequest
 		Account account = accountService.findById(request.getRemoteUser());
 		Favourite favourite = favouriteService.updateLikeOrUnlike(account, id);
 		return favourite;

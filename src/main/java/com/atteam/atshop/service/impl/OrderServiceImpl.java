@@ -91,6 +91,7 @@ public class OrderServiceImpl implements IOrderService{
 		
 		// Cập nhật số lượng sản phẩm trong kho
 		for (OrderDetail detail : details) {
+			// tổng sl đúng với kho của shop
 			Product product = productDao.findById(detail.getProduct().getProductId()).get();
 			System.out.println("So luong trong kho ban dau: " + product.getProductQuantity());
 			System.out.println("So luong khach dat: " + detail.getQuantity());

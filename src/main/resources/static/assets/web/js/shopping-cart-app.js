@@ -1,4 +1,4 @@
-var app = angular.module("shopping-cart-app", []);
+ var app = angular.module("shopping-cart-app", []);
 
 app.controller("shopping-cart-ctrl", function($scope, $http){	
 
@@ -101,7 +101,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 			if(item){  // đã tồn tại thì ++
 				if(item.qty < item.productQuantity){
 					// Kiểm tra số lượng sản phẩm trong giỏ hàng với số lượng sản phẩm trong kho
-					item.qty++;
+					item.qty++; 
 					this.saveToLocalStorage();
 				}else{
 					alert("The number of products has exceeded the quantity in stock!");

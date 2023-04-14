@@ -52,7 +52,9 @@ public class ProductController {
 	 * */
 	
 	@RequestMapping("/product/list")
+	// Optional là 1 đối tượng : mang 2 giá trị - 1 null - 2 đối tượng
 	public String list(Model model, @RequestParam("cid") Optional<String> cid) {
+		// nó là rỗng hay là tồn tại 1 đối tượng
 		if(cid.isPresent()) {
 			List<Product> list = productService.findByCategoryId(cid.get());
 			for(int i = 0; i < list.size(); ++i) {
